@@ -11,7 +11,7 @@ function renderBooks() {
                 <td>${book.title}</td>
                 <td>$${book.price}</td>
                 <td>
-                <button>read</button>
+                <button class="button-read">read</button>
                 <button onclick="onUpdateBook('${book.id}')">update</button>
                 <button onclick="onRemoveBook('${book.id}')">delete</button>
                 </td>
@@ -19,7 +19,6 @@ function renderBooks() {
     )
     elBookList.innerHTML = strHtmls.join('')
 }
-
 
 function onRemoveBook(bookId) {
     removeBook(bookId)
@@ -34,5 +33,17 @@ function onUpdateBook(bookId) {
         return
     }
     updateBook(suggestedPrice, bookId)
+    renderBooks()
+}
+
+function onAddBook() {
+    var price = +prompt('Suggest a price')
+    var bookTitle = prompt('Suggest a new book title')
+
+    if (isNaN(price) || price <= 0) {
+        alert('Invalid price. Please enter a valid price over $0.')
+        return
+    }
+    addBook(price, bookTitle)
     renderBooks()
 }

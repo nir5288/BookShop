@@ -1,5 +1,7 @@
 'use strict'
 
+var gIdx = 103
+
 var gBooks = [
     { id: 'bk101', title: 'The Great Gatsby', price: 15, imgUrl: 'great-gatsby.jpg' },
     { id: 'bk102', title: '1984', price: 12, imgUrl: '1984.jpg' },
@@ -12,10 +14,22 @@ function getBooks() {
 
 function removeBook(bookId) {
     const idx = gBooks.findIndex(book => book.id === bookId)
-	gBooks.splice(idx, 1)
+    gBooks.splice(idx, 1)
 }
 
 function updateBook(price, bookId) {
     const idx = gBooks.findIndex(book => book.id === bookId)
     gBooks[idx].price = price
+}
+
+function addBook(price, bookTitle) {
+    gIdx++
+    gBooks.push(
+        {
+            id: `bk${gIdx}`,
+            title: bookTitle,
+            price,
+            imgUrl: `${bookTitle}.jpg`
+        }
+    )
 }
