@@ -10,8 +10,14 @@ function renderBooks() {
             `<tr>
                 <td>${book.title}</td>
                 <td>$${book.price}</td>
-                <td><button>read</button><button>update</button><button>delete</button></td>
+                <td><button>read</button><button>update</button><button onclick="onRemoveBook('${book.id}')">delete</button></td>
             </tr>`
     )
     elBookList.innerHTML = strHtmls.join('')
+}
+
+
+function onRemoveBook(bookId) {
+    removeBook(bookId)
+    renderBooks()
 }
