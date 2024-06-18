@@ -7,8 +7,8 @@
     <title>Book Shop</title>
 </head>
 
-<body>
-    <table>
+<body onload="onInit()">
+    <table class="book-table">
         <thead>
             <tr>
                 <th>Title</th>
@@ -16,25 +16,11 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>The Great Gatsby</td>
-                <td>15</td>
-                <td><button>read</button><button>update</button><button>delete</button></td>
-            </tr>
-            <tr>
-                <td>1984</td>
-                <td>12</td>
-                <td><button>read</button><button>update</button><button>delete</button></td>
-            </tr>
-            <tr>
-                <td>To Kill a Mockingbird</td>
-                <td>18</td>
-                <td><button>read</button><button>update</button><button>delete</button></td>
-            </tr>
+        <tbody class="book-list">
         </tbody>
     </table>
-
+    <script src="js/book.controller.js"></script>
+    <script src="js/book.service.js"></script>
 </body>
 
 </html>
