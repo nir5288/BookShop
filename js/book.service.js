@@ -12,13 +12,26 @@ function getBooks() {
     return gBooks
 }
 
-function removeBook(bookId) {
+
+function getBookIdById(bookId) {
     const idx = gBooks.findIndex(book => book.id === bookId)
+    return idx
+}
+
+function getBookById(bookId) {
+    const book = gBooks.find(book => book.id === bookId)
+    return book
+}
+
+function removeBook(bookId) {
+    // const idx = gBooks.findIndex(book => book.id === bookId)
+    var idx = getBookIdById(bookId)
     gBooks.splice(idx, 1)
 }
 
 function updateBook(price, bookId) {
-    const idx = gBooks.findIndex(book => book.id === bookId)
+    // const idx = gBooks.findIndex(book => book.id === bookId)
+    var idx = getBookIdById(bookId)
     gBooks[idx].price = price
 }
 
@@ -32,4 +45,9 @@ function addBook(price, bookTitle) {
             imgUrl: `${bookTitle}.jpg`
         }
     )
+}
+
+function showBookDetails(bookId) {
+    var book = getBookById(bookId)
+    return book
 }

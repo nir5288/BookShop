@@ -11,7 +11,7 @@ function renderBooks() {
                 <td>${book.title}</td>
                 <td>$${book.price}</td>
                 <td>
-                <button class="button-read">read</button>
+                <button onclick="onShowBookDetails(event, '${book.id}')" class="button-read">read</button>
                 <button onclick="onUpdateBook('${book.id}')">update</button>
                 <button onclick="onRemoveBook('${book.id}')">delete</button>
                 </td>
@@ -46,4 +46,15 @@ function onAddBook() {
     }
     addBook(price, bookTitle)
     renderBooks()
+}
+
+function onShowBookDetails(ev, bookId) {
+    ev.stopPropagation()
+    const elBookDetails = document.querySelector('.book-details')
+    const elPre = elBookDetails.querySelector('.book-details pre')
+    const book = showBookDetails(bookId)
+    console.log(ev)
+
+    elPre.innerText = JSON.stringify(book, null, 2)
+    elBookDetails.classList.remove('hidden')
 }

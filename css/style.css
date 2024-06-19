@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+.book-details {
+    padding: 10px;
+    background-color: yellow;
+}
+
+.hidden {
+    display: none;
+}
