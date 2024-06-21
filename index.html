@@ -9,6 +9,16 @@
 </head>
 
 <body onload="onInit()">
+    <h1>Read a book</h1>
+
+    <section class="filter">
+        <select onchange="onSetFilterBy(this)">
+            <option value="">All</option>
+            <option value="Over 20">Over $20</option>
+            <option value="Below 20">Below $20</option>
+        </select>
+    </section>
+
     <table class="book-table">
         <thead>
             <tr>

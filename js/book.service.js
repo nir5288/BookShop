@@ -4,12 +4,19 @@ var gIdx = 103
 
 var gBooks = [
     { id: 'bk101', title: 'The Great Gatsby', price: 15, imgUrl: 'great-gatsby.jpg' },
-    { id: 'bk102', title: '1984', price: 12, imgUrl: '1984.jpg' },
+    { id: 'bk102', title: '1984', price: 24, imgUrl: '1984.jpg' },
     { id: 'bk103', title: 'To Kill a Mockingbird', price: 18, imgUrl: 'to-kill-a-mockingbird.jpg' }
 ]
 
-function getBooks() {
-    return gBooks
+function getBooks(filterBy) {
+    if (!filterBy) return gBooks
+
+
+    if (filterBy === 'Over 20') {
+        return gBooks.filter(book => book.price > 20);
+    } else if (filterBy === 'Below 20') {
+        return gBooks.filter(book => book.price <= 20);
+    }
 }
 
 

@@ -1,12 +1,14 @@
 'use strict'
 
+var gFilterBy = ''
+
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
     const elBookList = document.querySelector('.book-list')
-    const strHtmls = getBooks().map(book =>
+    const strHtmls = getBooks(gFilterBy).map(book =>
         `<tr>
                 <td>${book.title}</td>
                 <td>$${book.price}</td>
@@ -62,3 +64,8 @@ function onShowBookDetails(ev, bookId) {
 //     ev.preventDefault()
 //     elForm.classList.add('hidden')
 // }
+
+function onSetFilterBy(elSelect) {
+    gFilterBy = elSelect.value
+    renderBooks()
+}
