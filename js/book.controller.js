@@ -53,12 +53,12 @@ function onShowBookDetails(ev, bookId) {
     const elBookDetails = document.querySelector('.book-details')
     const elPre = elBookDetails.querySelector('.book-details pre')
     const book = showBookDetails(bookId)
-    
+
     elPre.innerText = JSON.stringify(book, null, 2)
-    elBookDetails.classList.remove('hidden')
+    elBookDetails.showModal()
 }
 
-function onCloseDetails(ev, elForm) {
-    ev.preventDefault()
-    elForm.classList.add('hidden')
-}
+// function onCloseDetails(ev, elForm) {
+//     ev.preventDefault()
+//     elForm.classList.add('hidden')
+// }

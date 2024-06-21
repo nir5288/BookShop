@@ -20,14 +20,16 @@
         <tbody class="book-list">
         </tbody>
     </table>
-    
+
     <button class="addbook-button" onclick="onAddBook()"> Add a Book</button>
 
-    <form onsubmit="onCloseDetails(event, this)" class="book-details hidden">
-        <h2>Book Details</h2>
-        <pre></pre>
-        <button>x</button>
-    </form>
+    <dialog class="book-details">
+        <form method="dialog">
+            <h2>Book Details</h2>
+            <pre></pre>
+            <button>x</button>
+        </form>
+    </dialog>
 
     <script src="js/book.controller.js"></script>
     <script src="js/book.service.js"></script>

@@ -10,6 +10,7 @@ button {
 .book-details {
     padding: 10px;
     background-color: yellow;
+    border: 1px solid gray;
 }
 
 .hidden {
