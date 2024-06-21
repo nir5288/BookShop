@@ -23,7 +23,8 @@
     
     <button class="addbook-button" onclick="onAddBook()"> Add a Book</button>
 
-    <form onsubmit="" class="book-details hidden">
+    <form onsubmit="onCloseDetails(event, this)" class="book-details hidden">
+        <h2>Book Details</h2>
         <pre></pre>
         <button>x</button>
     </form>
