@@ -9,9 +9,12 @@
 </head>
 
 <body onload="onInit()">
-    <h1>Read a book</h1>
+    <header>
+        <h1>Read a book</h1>
+    </header>
 
     <section class="filter">
+        <p>Filter:</p>
         <select onchange="onSetFilterBy(this)">
             <option value="">All</option>
             <option value="Over 20">Over $20</option>
@@ -40,6 +43,13 @@
             <button>x</button>
         </form>
     </dialog>
+
+    <footer>
+        <p>Coffee rights &copy;</p>
+        <section class="stats">
+            <span>Total</span>
+        </section>
+    </footer>
 
     <script src="js/book.controller.js"></script>
     <script src="js/book.service.js"></script>
