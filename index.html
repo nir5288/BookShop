@@ -9,12 +9,9 @@
 </head>
 
 <body onload="onInit()">
-    <header>
-        <h1>Read a book</h1>
-    </header>
+    <h1>Read a book</h1>
 
     <section class="filter">
-        <p>Filter:</p>
         <select onchange="onSetFilterBy(this)">
             <option value="">All</option>
             <option value="Over 20">Over $20</option>
@@ -51,8 +48,9 @@
         </section>
     </footer>
 
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/book.service.js"></script>
     <script src="js/book.controller.js"></script>
-    <script src="js/book.service.js"></script>
 </body>
 
 </html>

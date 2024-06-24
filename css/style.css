@@ -2,46 +2,6 @@
     box-sizing: border-box;
 }
 
-
-
-header {
-    background-color: rgb(29, 196, 202);
-    padding: 0.5em;
-    margin-block-end: 1em;
-}
-
-header h1 {
-    margin: 0;
-}
-
-.filter {
-    display: flex;
-    align-items: center;
-    gap: .5em;
-    background-color: rgb(146, 221, 228);
-}
-
-
-.filter p {
-    margin: 0;
-}
-
-.book-list{
-
-}
-
-.book-list tr:nth-child(odd) {
-background-color: rgb(173, 173, 173);
-}
-
-.addbook-button {
-    background-color: orange;
-    border-radius: 10%;
-    font-weight: bold;
-    margin-block-start: 1em;
-
-}
-
 button {
     cursor: pointer;
 }

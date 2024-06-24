@@ -2,11 +2,27 @@
 
 var gIdx = 103
 
-var gBooks = [
-    { id: 'bk101', title: 'The Great Gatsby', price: 15, imgUrl: 'great-gatsby.jpg' },
-    { id: 'bk102', title: '1984', price: 24, imgUrl: '1984.jpg' },
-    { id: 'bk103', title: 'To Kill a Mockingbird', price: 18, imgUrl: 'to-kill-a-mockingbird.jpg' }
-]
+const STORAGE_KEY = 'bookDB'
+
+var gBooks = _createBooks()
+
+
+function _createBooks() {
+    var books = loadFromStorage(STORAGE_KEY)
+    if (books && books.length) return books
+
+    books = [
+        { id: 'bk101', title: 'The Great Gatsby', price: 15, imgUrl: 'great-gatsby.jpg' },
+        { id: 'bk102', title: '1984', price: 24, imgUrl: '1984.jpg' },
+        { id: 'bk103', title: 'To Kill a Mockingbird', price: 18, imgUrl: 'to-kill-a-mockingbird.jpg' }
+    ]
+    saveToStorage(STORAGE_KEY, books)
+    return books
+}
+
+function _saveBooksToStorage() {
+    saveToStorage(STORAGE_KEY, gBooks)
+}
 
 function getBooks(filterBy) {
     if (!filterBy) return gBooks
