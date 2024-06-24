@@ -50,12 +50,14 @@ function removeBook(bookId) {
     // const idx = gBooks.findIndex(book => book.id === bookId)
     var idx = getBookIdById(bookId)
     gBooks.splice(idx, 1)
+    saveToStorage(STORAGE_KEY, gBooks)
 }
 
 function updateBook(price, bookId) {
     // const idx = gBooks.findIndex(book => book.id === bookId)
     var idx = getBookIdById(bookId)
     gBooks[idx].price = price
+    saveToStorage(STORAGE_KEY, gBooks)
 }
 
 function addBook(price, bookTitle) {
@@ -68,6 +70,7 @@ function addBook(price, bookTitle) {
             imgUrl: `${bookTitle}.jpg`
         }
     )
+    saveToStorage(STORAGE_KEY, gBooks)
 }
 
 function showBookDetails(bookId) {
