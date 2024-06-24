@@ -6,6 +6,20 @@ button {
     cursor: pointer;
 }
 
+.main-title {
+    display: inline-block;
+    background-color: yellow;
+}
+
+.book-table th, .book-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.book-list tr:nth-child(odd) {
+    background-color: rgb(221, 221, 221);
+}
 
 .book-details {
     padding: 10px;
@@ -15,4 +29,11 @@ button {
 
 .hidden {
     display: none;
+}
+
+.addbook-button{
+    background-color: orange;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 10px;
 }
