@@ -1,6 +1,8 @@
 'use strict'
 
-var gFilterBy = ''
+const gQueryOptions = {
+    filterBy: { txt: '', filterBy: '' }
+}
 
 function onInit() {
     renderBooks()
@@ -8,7 +10,7 @@ function onInit() {
 
 function renderBooks() {
     const elBookList = document.querySelector('.book-list')
-    const strHtmls = getBooks(gFilterBy).map(book =>
+    const strHtmls = getBooks(gQueryOptions).map(book =>
         `<tr>
                 <td>${book.title}</td>
                 <td>$${book.price}</td>
@@ -65,7 +67,20 @@ function onShowBookDetails(ev, bookId) {
 //     elForm.classList.add('hidden')
 // }
 
-function onSetFilterBy(elSelect) {
-    gFilterBy = elSelect.value
+function onSetFilterBy(elFilter) {
+    if (elFilter.txt !== undefined) {
+        gQueryOptions.filterBy.txt = elFilter.txt
+    } else if (elFilter.value !== undefined) {
+        gQueryOptions.filterBy.filterBy = elFilter.value
+    }
+    renderBooks()
+}
+
+function resetFilter() {
+    const elResetButton = document.getElementById('filter-txt')
+
+    gQueryOptions.filterBy.txt = ''
+    elResetButton.value = ''
+
     renderBooks()
 }

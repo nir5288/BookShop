@@ -24,15 +24,23 @@ function _saveBooksToStorage() {
     saveToStorage(STORAGE_KEY, gBooks)
 }
 
-function getBooks(filterBy) {
-    if (!filterBy) return gBooks
+function getBooks(options = {}) {
+    if (!options) return gBooks
 
+    var books = gBooks
 
-    if (filterBy === 'Over 20') {
-        return gBooks.filter(book => book.price > 20);
-    } else if (filterBy === 'Below 20') {
-        return gBooks.filter(book => book.price <= 20);
+    if (options.filterBy.txt) {
+        books = gBooks.filter(book => book.title.toLowerCase().includes(options.filterBy.txt.toLowerCase()))
+        console.log(books)
     }
+
+
+    if (options.filterBy.filterBy === 'Over 20') {
+        return books.filter(book => book.price > 20)
+    } else if (options.filterBy.filterBy === 'Below 20') {
+        return books.filter(book => book.price <= 20)
+    }
+    return books
 }
 
 

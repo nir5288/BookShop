@@ -19,6 +19,11 @@
         </select>
     </section>
 
+    <div class="filter-by">
+        <input id="filter-txt" oninput="onSetFilterBy({ txt: this.value })" placeholder="Book Name" type="text"> 
+        <button onclick="resetFilter()">Clear</button>
+    </div>
+
     <table class="book-table">
         <thead>
             <tr>
