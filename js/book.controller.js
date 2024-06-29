@@ -48,6 +48,10 @@ function onAddBook() {
         alert('Invalid price. Please enter a valid price over $0.')
         return
     }
+    if (bookTitle.length < 1) {
+        alert('Invalid Name. Please enter a valid name.')
+        return
+    }
     addBook(price, bookTitle)
     renderBooks()
 }
