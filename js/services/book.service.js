@@ -55,17 +55,17 @@ function getBookById(bookId) {
 }
 
 function removeBook(bookId) {
-    // const idx = gBooks.findIndex(book => book.id === bookId)
     var idx = getBookIdById(bookId)
     gBooks.splice(idx, 1)
     saveToStorage(STORAGE_KEY, gBooks)
+    onSuccessMessage('Book Deleted Successfully.')
 }
 
 function updateBook(price, bookId) {
-    // const idx = gBooks.findIndex(book => book.id === bookId)
     var idx = getBookIdById(bookId)
     gBooks[idx].price = price
     saveToStorage(STORAGE_KEY, gBooks)
+    onSuccessMessage('Book Update Successfully.')
 }
 
 function addBook(price, bookTitle) {
@@ -79,6 +79,7 @@ function addBook(price, bookTitle) {
         }
     )
     saveToStorage(STORAGE_KEY, gBooks)
+    onSuccessMessage('Book Added Successfully.')
 }
 
 function showBookDetails(bookId) {

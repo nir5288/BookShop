@@ -11,7 +11,8 @@ button {
     background-color: yellow;
 }
 
-.book-table th, .book-table td {
+.book-table th,
+.book-table td {
     border: 1px solid black;
     padding: 8px;
     text-align: left;
@@ -31,9 +32,33 @@ button {
     display: none;
 }
 
-.addbook-button{
+.addbook-button {
     background-color: orange;
     font-size: 1em;
     font-weight: bold;
     margin-top: 10px;
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: rgb(248, 255, 44);
+    border-radius: 5px;
+    border: 2px solid;
+    z-index: 9999;
+    height: 25px;
+    width: 200px;
+    margin: 5px 5px;
+    bottom: 5px;
+    right: 5px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.success-message.show {
+    opacity: 1;
 }

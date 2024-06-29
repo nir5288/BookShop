@@ -62,11 +62,6 @@ function onShowBookDetails(ev, bookId) {
     elBookDetails.showModal()
 }
 
-// function onCloseDetails(ev, elForm) {
-//     ev.preventDefault()
-//     elForm.classList.add('hidden')
-// }
-
 function onSetFilterBy(elFilter) {
     if (elFilter.txt !== undefined) {
         gQueryOptions.filterBy.txt = elFilter.txt
@@ -83,4 +78,18 @@ function resetFilter() {
     elResetButton.value = ''
 
     renderBooks()
+}
+
+function onSuccessMessage(message) {
+    const elMessage = document.querySelector('.success-message')
+    elMessage.innerText = message
+
+    elMessage.classList.add('show')
+
+    setTimeout(() => {
+        elMessage.classList.remove('show')
+        setTimeout(() => {
+            elMessage.innerText = ''
+        }, 500);
+    }, 2000)
 }
