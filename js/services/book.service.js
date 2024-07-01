@@ -12,9 +12,9 @@ function _createBooks() {
     if (books && books.length) return books
 
     books = [
-        { id: 'bk101', title: 'The Great Gatsby', price: 15, imgUrl: 'great-gatsby.jpg' },
-        { id: 'bk102', title: '1984', price: 24, imgUrl: '1984.jpg' },
-        { id: 'bk103', title: 'To Kill a Mockingbird', price: 18, imgUrl: 'to-kill-a-mockingbird.jpg' }
+        { id: 'bk101', title: 'The Great Gatsby', price: 15, imgUrl: 'great-gatsby.jpg', rating: getRandomIntInclusive(1, 5) },
+        { id: 'bk102', title: '1984', price: 24, imgUrl: '1984.jpg', rating: getRandomIntInclusive(1, 5) },
+        { id: 'bk103', title: 'To Kill a Mockingbird', price: 18, imgUrl: 'to-kill-a-mockingbird.jpg', rating: getRandomIntInclusive(1, 5) }
     ]
     saveToStorage(STORAGE_KEY, books)
     return books

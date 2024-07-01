@@ -18,6 +18,7 @@ function renderBooks() {
                 <button onclick="onShowBookDetails(event, '${book.id}')" class="button-read">read</button>
                 <button onclick="onUpdateBook('${book.id}')">update</button>
                 <button onclick="onRemoveBook('${book.id}')">delete</button>
+                <td class="rating">${book.rating}</td>
                 </td>
             </tr>`
     )
