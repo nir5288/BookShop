@@ -59,6 +59,7 @@ function removeBook(bookId) {
     gBooks.splice(idx, 1)
     saveToStorage(STORAGE_KEY, gBooks)
     onSuccessMessage('Book Deleted Successfully.')
+    onStats()
 }
 
 function updateBook(price, bookId) {
@@ -66,6 +67,7 @@ function updateBook(price, bookId) {
     gBooks[idx].price = price
     saveToStorage(STORAGE_KEY, gBooks)
     onSuccessMessage('Book Update Successfully.')
+    onStats()
 }
 
 function addBook(price, bookTitle) {
@@ -80,9 +82,20 @@ function addBook(price, bookTitle) {
     )
     saveToStorage(STORAGE_KEY, gBooks)
     onSuccessMessage('Book Added Successfully.')
+    onStats()
 }
 
 function showBookDetails(bookId) {
     var book = getBookById(bookId)
     return book
+}
+
+stats()
+function stats() {
+    var booksCount = gBooks.length
+    var booksBelow80 = gBooks.filter(book => book.price < 80).length
+    var books80to200 = gBooks.filter(book => book.price >= 80 & book.price <= 200).length
+    var booksOver200 = gBooks.filter(book => book.price > 200).length
+
+    return { booksCount, booksBelow80, books80to200, booksOver200 }
 }

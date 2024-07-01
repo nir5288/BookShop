@@ -94,6 +94,21 @@ function onSuccessMessage(message) {
         elMessage.classList.remove('show')
         setTimeout(() => {
             elMessage.innerText = ''
-        }, 500);
+        }, 500)
     }, 2000)
+}
+
+onStats()
+function onStats() {
+    var statsResult = stats()
+
+    var totalStats = document.querySelector('.total-books')
+    var booksBelow80 = document.querySelector('.books-below-80')
+    var books80to200 = document.querySelector('.books-between-80-200')
+    var booksOver200 = document.querySelector('.books-over-200')
+
+    totalStats.innerText = statsResult.booksCount
+    booksBelow80.innerText = statsResult.booksBelow80
+    books80to200.innerText = statsResult.books80to200
+    booksOver200.innerText = statsResult.booksOver200
 }
