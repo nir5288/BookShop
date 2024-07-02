@@ -1,6 +1,7 @@
 'use strict'
 
 var gIdx = 103
+var gRating
 
 const STORAGE_KEY = 'bookDB'
 
@@ -31,14 +32,21 @@ function getBooks(options = {}) {
 
     if (options.filterBy.txt) {
         books = gBooks.filter(book => book.title.toLowerCase().includes(options.filterBy.txt.toLowerCase()))
-        console.log(books)
     }
 
 
     if (options.filterBy.filterBy === 'Over 20') {
-        return books.filter(book => book.price > 20)
+        books = books.filter(book => book.price > 20)
     } else if (options.filterBy.filterBy === 'Below 20') {
-        return books.filter(book => book.price <= 20)
+        books = books.filter(book => book.price <= 20)
+    }
+
+    if (options.filterBy.rating > 0) {
+        books = books.filter(book => book.rating >= options.filterBy.rating)
+    }
+
+    if (options.filterBy.ratingDropDown > 0) {
+        books = books.filter(book => book.rating >= options.filterBy.ratingDropDown)
     }
     return books
 }
@@ -90,12 +98,13 @@ function showBookDetails(bookId) {
     return book
 }
 
-stats()
-function stats() {
+function stats() { // change to reduce
     var booksCount = gBooks.length
     var booksBelow80 = gBooks.filter(book => book.price < 80).length
     var books80to200 = gBooks.filter(book => book.price >= 80 & book.price <= 200).length
     var booksOver200 = gBooks.filter(book => book.price > 200).length
+
+
 
     return { booksCount, booksBelow80, books80to200, booksOver200 }
 }

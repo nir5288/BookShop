@@ -1,7 +1,7 @@
 'use strict'
 
 const gQueryOptions = {
-    filterBy: { txt: '', filterBy: '' }
+    filterBy: { txt: '', filterBy: '', rating: 0, ratingDropDown: 0 }
 }
 
 function onInit() {
@@ -15,9 +15,9 @@ function renderBooks() {
                 <td>${book.title}</td>
                 <td>$${book.price}</td>
                 <td>
-                <button onclick="onShowBookDetails(event, '${book.id}')" class="button-read">read</button>
-                <button onclick="onUpdateBook('${book.id}')">update</button>
-                <button onclick="onRemoveBook('${book.id}')">delete</button>
+                <button onclick="onShowBookDetails(event, '${book.id}')" class="button-read">Read</button>
+                <button onclick="onUpdateBook('${book.id}')">Update</button>
+                <button onclick="onRemoveBook('${book.id}')">Delete</button>
                 <td class="rating">${book.rating}</td>
                 </td>
             </tr>`
@@ -72,15 +72,31 @@ function onSetFilterBy(elFilter) {
         gQueryOptions.filterBy.txt = elFilter.txt
     } else if (elFilter.value !== undefined) {
         gQueryOptions.filterBy.filterBy = elFilter.value
+    } else if (elFilter.rating !== undefined) {
+        gQueryOptions.filterBy.rating = elFilter.rating
+    } else if (elFilter.ratingDropDown !== undefined) {
+        gQueryOptions.filterBy.ratingDropDown = elFilter.ratingDropDown
     }
+    console.log(gQueryOptions)
     renderBooks()
 }
 
 function resetFilter() {
     const elResetButton = document.getElementById('filter-txt')
+    const elPriceReset = document.querySelector('.filter')
+    const elRating = document.querySelector('.rating-range')
+    const elRatingDropDown = document.querySelector('.filter-rating select')
 
+    gQueryOptions.filterBy.filterBy = ''
     gQueryOptions.filterBy.txt = ''
+    gQueryOptions.filterBy.rating = 0
+    gQueryOptions.filterBy.ratingDropDown = 0
+
     elResetButton.value = ''
+    elRating.title = 0
+    elRating.value = 0
+    elRatingDropDown.value = ''
+    elPriceReset.value = ''
 
     renderBooks()
 }
@@ -93,9 +109,6 @@ function onSuccessMessage(message) {
 
     setTimeout(() => {
         elMessage.classList.remove('show')
-        setTimeout(() => {
-            elMessage.innerText = ''
-        }, 500)
     }, 2000)
 }
 

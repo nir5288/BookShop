@@ -11,8 +11,8 @@
 <body onload="onInit()">
     <h1>Read a book</h1>
 
-    <section class="filter">
-        <select onchange="onSetFilterBy(this)">
+    <section>
+        <select class="filter" onchange="onSetFilterBy(this)">
             <option value="">All</option>
             <option value="Over 20">Over $20</option>
             <option value="Below 20">Below $20</option>
@@ -20,8 +20,24 @@
     </section>
 
     <div class="filter-by">
-        <input id="filter-txt" oninput="onSetFilterBy({ txt: this.value })" placeholder="Book Name" type="text">
-        <button onclick="resetFilter()">Clear</button>
+        <input id="filter-txt" oninput="onSetFilterBy({ txt: this.value })" placeholder="Search By Name" type="text">
+        <label>
+            <span>Rating:</span>
+            <input class="rating-range" type="range" min="0" max="5" value="0"
+                onchange="this.title=this.value;onSetFilterBy({ rating: +this.value })" />
+        </label>
+        <button onclick="resetFilter()">Clear Filters</button>
+
+        <section class="filter-rating">
+            <select onchange="onSetFilterBy({ ratingDropDown: +this.value })">
+                <option value="">All</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </section>
     </div>
 
     <table class="book-table">
@@ -47,8 +63,10 @@
         </form>
     </dialog>
 
-    <div class="success-message"></div>
-    
+    <div>
+        <p class="success-message"></p>
+    </div>
+
     <footer>
         <p>Coffee rights &copy;</p>
         <section class="stats">
