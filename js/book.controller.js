@@ -1,10 +1,13 @@
 'use strict'
 
 const gQueryOptions = {
-    filterBy: { txt: '', filterBy: '', rating: 0, ratingDropDown: 0 }
+    filterBy: { txt: '', filterBy: '', rating: 0, ratingDropDown: 0 },
+    sortBy: {},
+    page: { idx: 0, size: 5 }
 }
 
 function onInit() {
+    readQueryParams()
     renderBooks()
 }
 
@@ -77,26 +80,73 @@ function onSetFilterBy(elFilter) {
     } else if (elFilter.ratingDropDown !== undefined) {
         gQueryOptions.filterBy.ratingDropDown = elFilter.ratingDropDown
     }
-    console.log(gQueryOptions)
+    setQueryParams()
+    gQueryOptions.page.idx = 0
     renderBooks()
 }
+
+function onSetSortBy() {
+    const elSortField = document.querySelector('.sort-by select')
+    const elSortDir = document.querySelector('.sort-by input')
+
+    const sortField = elSortField.value
+    const sortDir = elSortDir.checked ? -1 : 1
+
+    gQueryOptions.sortBy = { [sortField]: sortDir }
+
+    gQueryOptions.page.idx = 0
+    setQueryParams()
+    renderBooks()
+
+}
+
+
+function onNextPage() {
+    const pageCount = getPageCount(gQueryOptions)
+
+    if (gQueryOptions.page.idx === pageCount - 1) {
+        gQueryOptions.page.idx = 0
+    } else {
+        gQueryOptions.page.idx++
+    }
+    setQueryParams()
+    renderBooks()
+}
+
+function onPreviousPage() {
+    const pageCount = getPageCount(gQueryOptions)
+
+    if (gQueryOptions.page.idx === 0) {
+        gQueryOptions.page.idx = pageCount - 1
+    } else {
+        gQueryOptions.page.idx--
+    }
+    setQueryParams()
+    renderBooks()
+}
+
 
 function resetFilter() {
     const elResetButton = document.getElementById('filter-txt')
     const elPriceReset = document.querySelector('.filter')
     const elRating = document.querySelector('.rating-range')
     const elRatingDropDown = document.querySelector('.filter-rating select')
+    const elSort = document.querySelector('.sort-by select')
+    const elSortDir = document.querySelector('.sort-desc')
 
     gQueryOptions.filterBy.filterBy = ''
     gQueryOptions.filterBy.txt = ''
     gQueryOptions.filterBy.rating = 0
     gQueryOptions.filterBy.ratingDropDown = 0
+    gQueryOptions.sortBy = {}
 
     elResetButton.value = ''
     elRating.title = 0
     elRating.value = 0
     elRatingDropDown.value = ''
     elPriceReset.value = ''
+    elSort.value = ''
+    elSortDir.checked  = false
 
     renderBooks()
 }
@@ -125,4 +175,69 @@ function onStats() {
     booksBelow80.innerText = statsResult.booksBelow80
     books80to200.innerText = statsResult.books80to200
     booksOver200.innerText = statsResult.booksOver200
+}
+
+
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+
+    gQueryOptions.filterBy = {
+        txt: queryParams.get('book') || '',
+        filterBy: queryParams.get('priceOver') || '',
+        rating: +queryParams.get('rating') || 0,
+        ratingDropDown: +queryParams.get('ratingDropDown') || 0
+    }
+
+    if (queryParams.get('sortBy')) {
+        const prop = queryParams.get('sortBy')
+        const dir = queryParams.get('sortDir')
+        gQueryOptions.sortBy[prop] = dir
+    }
+
+    renderQueryParams()
+}
+
+function renderQueryParams() {
+    document.getElementById('filter-txt').value = gQueryOptions.filterBy.txt
+    document.querySelector('.filter').value = gQueryOptions.filterBy.filterBy
+    document.querySelector('.rating-range').value = gQueryOptions.filterBy.rating
+    document.querySelector('.rating-range').title = gQueryOptions.filterBy.rating
+    document.querySelector('.filter-rating select').value = gQueryOptions.filterBy.ratingDropDown
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+    const sortBy = sortKeys[0]
+    const dir = gQueryOptions.sortBy[sortKeys[0]]
+
+    document.querySelector('.sort-by select').value = sortBy || ''
+    document.querySelector('.sort-by .sort-desc').checked = (dir === '-1') ? true : false
+
+}
+
+
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('book', gQueryOptions.filterBy.txt)
+    queryParams.set('rating', gQueryOptions.filterBy.rating)
+    queryParams.set('ratingDropDown', gQueryOptions.filterBy.ratingDropDown)
+    queryParams.set('priceOver', gQueryOptions.filterBy.filterBy)
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+
+    if (sortKeys.length) {
+        queryParams.set('sortBy', sortKeys[0])
+        queryParams.set('sortDir', gQueryOptions.sortBy[sortKeys[0]])
+    }
+
+    if (gQueryOptions.page) {
+        queryParams.set('pageIdx', gQueryOptions.page.idx)
+        queryParams.set('pageSize', gQueryOptions.page.size)
+    }
+
+    const newUrl =
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
 }

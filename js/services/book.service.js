@@ -29,11 +29,31 @@ function getBooks(options = {}) {
     if (!options) return gBooks
 
     var books = gBooks
+    const page = options.page
 
-    if (options.filterBy.txt) {
-        books = gBooks.filter(book => book.title.toLowerCase().includes(options.filterBy.txt.toLowerCase()))
+    books = _filterBooks(options)
+
+    if (options.sortBy.title) {
+        books = books.toSorted((c1, c2) => c1.title.localeCompare(c2.title) * options.sortBy.title)
     }
 
+    if (options.sortBy.price) {
+        books = books.toSorted((c1, c2) => (c1.price - c2.price) * options.sortBy.price)
+    }
+
+    if (options.sortBy.rating) {
+        books = books.toSorted((c1, c2) => (c1.rating - c2.rating) * options.sortBy.rating)
+    }
+
+    const startIdx = page.idx * page.size
+    const endIdx = startIdx + page.size
+    books = books.slice(startIdx, endIdx)
+    return books
+}
+
+function _filterBooks(options) {
+    var books = gBooks
+    if (options.filterBy.txt) books = gBooks.filter(book => book.title.toLowerCase().includes(options.filterBy.txt.toLowerCase()))
 
     if (options.filterBy.filterBy === 'Over 20') {
         books = books.filter(book => book.price > 20)
@@ -41,14 +61,20 @@ function getBooks(options = {}) {
         books = books.filter(book => book.price <= 20)
     }
 
-    if (options.filterBy.rating > 0) {
-        books = books.filter(book => book.rating >= options.filterBy.rating)
-    }
-
-    if (options.filterBy.ratingDropDown > 0) {
-        books = books.filter(book => book.rating >= options.filterBy.ratingDropDown)
-    }
+    if (options.filterBy.rating > 0) books = books.filter(book => book.rating >= options.filterBy.rating)
+    if (options.filterBy.ratingDropDown > 0) books = books.filter(book => book.rating >= options.filterBy.ratingDropDown)
     return books
+}
+
+function getPageCount(options) {
+    const filterBy = options.filterBy
+    const page = options.page
+
+    var booksLength = _filterBooks(filterBy).length
+
+    var pageCount = Math.ceil(booksLength / page.size)
+
+    return pageCount
 }
 
 
@@ -85,7 +111,8 @@ function addBook(price, bookTitle) {
             id: `bk${gIdx}`,
             title: bookTitle,
             price,
-            imgUrl: `${bookTitle}.jpg`
+            imgUrl: `${bookTitle}.jpg`,
+            rating: getRandomIntInclusive(1, 5)
         }
     )
     saveToStorage(STORAGE_KEY, gBooks)

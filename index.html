@@ -27,6 +27,22 @@
                 onchange="this.title=this.value;onSetFilterBy({ rating: +this.value })" />
         </label>
         <button onclick="resetFilter()">Clear Filters</button>
+        <button title="Previous Page" onclick="onPreviousPage()">Previous Page</button>
+        <button title="Next Page" onclick="onNextPage()">Next Page</button>
+
+
+        <div class="sort-by">
+            <select onchange="onSetSortBy()">
+                <option value="">Select Sorting</option>
+                <option value="title">By Title</option>
+                <option value="price">By Price</option>
+                <option value="rating">By Rating</option>
+            </select>
+            <label>
+                <span>Descending</span>
+                <input class="sort-desc" type="checkbox" oninput="onSetSortBy()" />
+            </label>
+        </div>
 
         <section class="filter-rating">
             <select onchange="onSetFilterBy({ ratingDropDown: +this.value })">
