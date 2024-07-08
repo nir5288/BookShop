@@ -44,6 +44,19 @@
             </label>
         </div>
 
+        <dialog class="book-edit-modal modal">
+            <form onsubmit="onSaveBook()" method="dialog">
+                <h2>Add Book</h2>
+
+                <input class="book-name" type="text" placeholder="Enter book name">
+                <input class="book-price" type="number" placeholder="Enter book pricing">
+                <div class="actions">
+                    <button type="button" onclick="onCloseBookEditModal()">Cancel</button>
+                    <button>Save</button>
+                </div>
+            </form>
+        </dialog>
+
         <section class="filter-rating">
             <select onchange="onSetFilterBy({ ratingDropDown: +this.value })">
                 <option value="">All</option>

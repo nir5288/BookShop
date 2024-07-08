@@ -96,9 +96,10 @@ function removeBook(bookId) {
     onStats()
 }
 
-function updateBook(price, bookId) {
+function updateBook(price, bookId, newTitle) {
     var idx = getBookIdById(bookId)
     gBooks[idx].price = price
+    gBooks[idx].title = newTitle
     saveToStorage(STORAGE_KEY, gBooks)
     onSuccessMessage('Book Update Successfully.')
     onStats()
@@ -106,7 +107,7 @@ function updateBook(price, bookId) {
 
 function addBook(price, bookTitle) {
     gIdx++
-    gBooks.push(
+    gBooks.unshift(
         {
             id: `bk${gIdx}`,
             title: bookTitle,

@@ -6,6 +6,8 @@ const gQueryOptions = {
     page: { idx: 0, size: 5 }
 }
 
+var gBookToEdit = null
+
 function onInit() {
     readQueryParams()
     renderBooks()
@@ -34,30 +36,47 @@ function onRemoveBook(bookId) {
 }
 
 function onUpdateBook(bookId) {
-    var suggestedPrice = +prompt('Please suggest a new Price')
+    onAddBook()
+    const elForm = document.querySelector('.book-edit-modal form')
+    const elPrice = elForm.querySelector('.book-price')
+    const elBookTitle = elForm.querySelector('.book-name')
 
-    if (isNaN(suggestedPrice) || suggestedPrice <= 0) {
-        alert('Invalid price. Please enter a valid price over $0.')
-        return
-    }
-    updateBook(suggestedPrice, bookId)
-    renderBooks()
+    const book = getBookById(bookId)
+
+    elPrice.value = book.price
+    elBookTitle.value = book.title
+
+    gBookToEdit = book
 }
 
 function onAddBook() {
-    var price = +prompt('Suggest a price')
-    var bookTitle = prompt('Suggest a new book title')
+    gBookToEdit = null
+    resetBookEditModal()
+    const elModal = document.querySelector('.book-edit-modal')
+    elModal.showModal()
+}
 
-    if (isNaN(price) || price <= 0) {
-        alert('Invalid price. Please enter a valid price over $0.')
-        return
+function onSaveBook() {
+    const elForm = document.querySelector('.book-edit-modal form')
+
+    const elPrice = elForm.querySelector('.book-price')
+    const elBookTitle = elForm.querySelector('.book-name')
+
+    var price = elPrice.value
+    var bookTitle = elBookTitle.value
+
+    if (gBookToEdit) {
+        updateBook(price, gBookToEdit.id, bookTitle)
+    } else {
+        addBook(price, bookTitle)
     }
-    if (bookTitle.length < 1) {
-        alert('Invalid Name. Please enter a valid name.')
-        return
-    }
-    addBook(price, bookTitle)
     renderBooks()
+}
+
+function resetBookEditModal() {
+    const elForm = document.querySelector('.book-edit-modal form')
+    elForm.querySelector('.book-price').value = ''
+    elForm.querySelector('.book-name').value = ''
 }
 
 function onShowBookDetails(ev, bookId) {
@@ -68,6 +87,10 @@ function onShowBookDetails(ev, bookId) {
 
     elPre.innerText = JSON.stringify(book, null, 2)
     elBookDetails.showModal()
+}
+
+function onCloseBookEditModal() {
+    document.querySelector('.book-edit-modal').close()
 }
 
 function onSetFilterBy(elFilter) {
@@ -146,7 +169,7 @@ function resetFilter() {
     elRatingDropDown.value = ''
     elPriceReset.value = ''
     elSort.value = ''
-    elSortDir.checked  = false
+    elSortDir.checked = false
 
     renderBooks()
 }
@@ -162,7 +185,6 @@ function onSuccessMessage(message) {
     }, 2000)
 }
 
-onStats()
 function onStats() {
     var statsResult = stats()
 
